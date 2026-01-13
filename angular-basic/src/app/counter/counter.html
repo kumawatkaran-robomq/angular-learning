@@ -1,0 +1,9 @@
+<div>
+  <h1 class="font-bold text-2xl font-sans">Counter Component</h1>
+  <input class="font-bold text-xl font-sans mt-7 border text-center" value="{{ count }}" readonly />
+  <div class="flex justify-center gap-3.5 mt-7">
+    <button (click)="decrememt()" class="border-2 p-3 px-10 rounded-2xl">Decrement</button>
+    <button (click)="reset()" class="border-2 p-3 px-10 rounded-2xl">Reset</button>
+    <button (click)="increment()" class="border-2 p-3 px-10 rounded-2xl">Increment</button>
+  </div>
+</div>
