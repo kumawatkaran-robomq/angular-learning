@@ -1,0 +1,14 @@
+<p>Event : {{ e }}</p>
+<p>{{ key }}</p>
+<input
+  class="border"
+  type="text"
+  (input)="onInput($event)"
+  (focus)="onFocus()"
+  (focusout)="onFocusout()"
+  (keyup)="onKeyUp()"
+  (keydown)="onKeyDown()"
+  (keyup.enter)="onEnter()"
+  (copy)="onCopy()"
+  (paste)="onPaste()"
+/>
