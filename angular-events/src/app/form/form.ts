@@ -13,10 +13,10 @@ export class Form {
     let name = event.target as HTMLInputElement;
     this.name = name.value;
   }
-  onInputAge(val: number) {
+  onInputAge(val: string) {
     // let age = event.target as HTMLInputElement;
     // this.age = Number(age.value);
-    this.age = val;
+    this.age = Number(val);
   }
   submit() {
     this.display = `My name is ${this.name} and ${this.age}`;
