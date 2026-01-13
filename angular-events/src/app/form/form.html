@@ -1,0 +1,13 @@
+<p>Get and Set Input field value</p>
+<p>{{ display }}</p>
+<div class="flex flex-col mx-170">
+  <input type="text" placeholder="Name" class="border my-2" (change)="onInputName($event)" />
+  <input
+    type="number"
+    placeholder="Age"
+    class="border my-2"
+    (change)="onInputAge(emailInput.value)"
+    #emailInput
+  />
+  <button (click)="submit()">Submit</button>
+</div>
