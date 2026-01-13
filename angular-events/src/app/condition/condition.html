@@ -1,0 +1,33 @@
+<p>Conditional Flow</p>
+<button class="border rounded-2xl p-1 px-3" (click)="setToggle()">Toggel me</button>
+@if(toggel){
+<div class="border w-28 p-24 items-center m-auto my-6 rounded-2xl bg-amber-300"></div>
+} @else{
+<div class="border w-28 p-24 items-center m-auto my-6 rounded-2xl bg-black"></div>
+}
+
+<hr />
+<!-- Switch case -->
+<br /><br />
+<p>Switch Case</p>
+<div class="flex gap-2 justify-center">
+  <button (click)="changeColor('red')" class="border px-2 rounded-md">red</button>
+  <button (click)="changeColor('blue')" class="border px-2 rounded-md">blue</button>
+  <button (click)="changeColor('green')" class="border px-2 rounded-md">green</button>
+  <button (click)="changeColor('pink')" class="border px-2 rounded-md">pink</button>
+  <button (click)="changeColor('orange')" class="border px-2 rounded-md">orange</button>
+</div>
+
+@switch(color){ @case('red'){
+<div class="border w-28 p-24 items-center m-auto my-6 rounded-2xl bg-red-500"></div>
+} @case('orange'){
+<div class="border w-28 p-24 items-center m-auto my-6 rounded-2xl bg-orange-400"></div>
+}@case('blue'){
+<div class="border w-28 p-24 items-center m-auto my-6 rounded-2xl bg-blue-400"></div>
+}@case('pink'){
+<div class="border w-28 p-24 items-center m-auto my-6 rounded-2xl bg-pink-400"></div>
+}@case('green'){
+<div class="border w-28 p-24 items-center m-auto my-6 rounded-2xl bg-green-400"></div>
+} @default{
+<div class="border w-28 p-24 items-center m-auto my-6 rounded-2xl bg-white"></div>
+} }
