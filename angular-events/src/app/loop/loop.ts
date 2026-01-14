@@ -13,4 +13,6 @@ export class Loop {
     { name: 'Rohit Singh', email: 'rohit.singh@example.com' },
     { name: 'Priya Patel', email: 'priya.patel@example.com' },
   ];
+
+  students = ['alice', 'bob', 'charlie', 'david', 'eva', 'frank', 'grace', 'hannah'];
 }

@@ -4,3 +4,16 @@
 <p>{{ user.name }}</p>
 <p>{{ user.email }}</p>
 }
+<br /><br />
+<h1>contextual variable in for loop</h1>
+<p>$index,$count,$odd,$even,$first,$last</p>
+<div class="flex gap-2 items-center justify-center">
+  @for(s of students;track s;let f=$first;let l=$last;let c=$count;let e=$even;let o=$odd){ @if (f
+  || l) {
+  <h1 class="bg-amber-400">{{ $index + 1 }}. {{ s }}</h1>
+  }@else {
+  <h1>{{ $index + 1 }}. {{ s }}</h1>
+  } } @empty {
+  <h1>no record</h1>
+  }
+</div>
