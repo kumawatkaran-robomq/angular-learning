@@ -1,0 +1,11 @@
+<p>binding works!</p>
+<input type="text" [(ngModel)]="name" )] placeholder="name" class="border" />
+<button class="border mx-4 px-2.5 rounded-lg" (click)="add()">Add</button>
+
+@for(name of namesList;track name){
+<ul style="list-style: square">
+  <li>
+    <p>{{ name }}</p>
+  </li>
+</ul>
+}
