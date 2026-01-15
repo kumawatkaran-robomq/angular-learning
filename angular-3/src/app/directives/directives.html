@@ -1,0 +1,36 @@
+<p class="underline">directives works!</p>
+<p>*ngFor directive</p>
+<ol>
+  <li *ngFor="let user of users">
+    {{ user }}
+  </li>
+</ol>
+
+<br /><br />
+<p>**ngIf directive (see console for effect)</p>
+<button class="border my-2 px-2" (click)="startFunc()">Start Clock</button>
+<button class="border my-2 px-2" (click)="stopFunc()">Stop Clock</button>
+<button class="border my-2 px-2" (click)="resetFunc()">Reset Clock</button>
+<div class="p-7 bg-amber-300">{{ time() }}</div>
+
+<div *ngIf="time() % 2 === 0; else odd" class="my-1.5 bg-amber-300 text-center">Even</div>
+
+<ng-template #odd>
+  <div class="my-1.5 bg-green-500 text-center">Odd</div>
+</ng-template>
+
+<br /><br />
+<p>*ngswitch and *ngSwitchcase</p>
+<div>
+  <button class="border mx-1 px-2 rounded-sm" (click)="changeColor('red')">Red</button>
+  <button class="border mx-1 px-2 rounded-sm" (click)="changeColor('green')">Green</button>
+  <button class="border mx-1 px-2 rounded-sm" (click)="changeColor('blue')">Blue</button>
+  <button class="border mx-1 px-2 rounded-sm" (click)="changeColor('yellow')">Yellow</button>
+</div>
+<div [ngSwitch]="color">
+  <div *ngSwitchCase="'red'" class="my-1.5 p-5 bg-red-500 text-center"></div>
+  <div *ngSwitchCase="'green'" class="my-1.5 p-5 bg-green-500 text-center"></div>
+  <div *ngSwitchCase="'blue'" class="my-1.5 p-5 bg-blue-500 text-center"></div>
+  <div *ngSwitchCase="'yellow'" class="my-1.5 p-5 bg-yellow-500 text-center"></div>
+  <div *ngSwitchDefault class="my-1.5 p-5 bg-gray-300 text-center">Select a color</div>
+</div>
