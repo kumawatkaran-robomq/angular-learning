@@ -1,6 +1,10 @@
 <p class="underline">routing works!</p>
 <ol class="flex gap-2.5 my-4">
+  <li>
+    <a routerLinkActive="active" routerLink="/" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+  </li>
   <li><a routerLinkActive="active" routerLink="/login">Login</a></li>
   <li><a routerLinkActive="active" routerLink="/signup">SignUp</a></li>
   <li><a routerLinkActive="active" routerLink="/about">About</a></li>
+  <li><a routerLinkActive="active" [routerLink]="['/profile', 'karan']">Profile</a></li>
 </ol>

@@ -1,0 +1,43 @@
+=============================METHOD 1 : ROUTE PARAMETER=============================
+
+import {ActivatedRoute} from '@angular/router'
+
+export class Component{
+    username:string | null=''
+    constructor(private route:ActivatedRoute){}
+
+    ngOnIt(){
+        this.username=this.route.snapshot.paramMap.get('name');
+        or
+        this.router.params.subscribe((params) => {
+           this.username = params['name'];
+        });
+    }
+}
+
+<a [routerLink]="['/profile','karan']">Profile</a>
+or
+this.router.navigate(['/profile', 'karan']);
+
+=============================METHOD 2 : QUERY PARAMETER=============================
+
+goToProfile(){
+    this.router.navigate(['/profile'],{queryParams:{name:'Karan'}});
+}
+
+ngOnIt(){
+    this.router.queryParams.subscribe((param) => {
+      this.username = param['name'];
+    });
+}
+
+=============================METHOD 3 : QUERY PARAMETER=============================
+
+{ path: 'login', component: Login, data: { data: 'this data is all about Login section' } },
+
+
+ngOnIt(){
+    this.router.data.subscribe((param) => {
+      this.data = param['data'];
+    });
+}
