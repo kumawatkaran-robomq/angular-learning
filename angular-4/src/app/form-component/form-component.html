@@ -1,0 +1,55 @@
+<p>form-component works!</p>
+<div class="flex flex-col">
+  <input type="text" placeholder="name" class="border my-2" [formControl]="name" />
+  <input type="text" placeholder="password" class="border my-1" [formControl]="password" />
+  <button class="border bg-amber-100 my-2" (click)="submit()">Submit</button>
+  <button class="border bg-amber-100 my-2" (click)="setValue()">Update or Set form values</button>
+  @if(display){
+  <p>Form Data</p>
+  <h1>{{ name.value }}</h1>
+  <h1>{{ password.value }}</h1>
+  }
+</div>
+<br /><br />
+<p>Form grouping works! (Look in console log)</p>
+<div class="">
+  <form [formGroup]="profileData" (ngSubmit)="onSubmit()" class="space-y-3">
+    <!-- Name -->
+    <div class="flex items-center gap-2">
+      <input type="text" placeholder="name" class="border p-1" formControlName="firstname" />
+      <span
+        class="text-red-500 text-sm"
+        *ngIf="profileData.get('firstname')?.touched && profileData.get('firstname')?.invalid"
+      >
+        Name required
+      </span>
+    </div>
+
+    <!-- Email -->
+    <div class="flex items-center gap-2">
+      <input type="text" placeholder="email" class="border p-1" formControlName="email" />
+      <span
+        class="text-red-500 text-sm"
+        *ngIf="profileData.get('email')?.touched && profileData.get('email')?.invalid"
+      >
+        Invalid email
+      </span>
+    </div>
+
+    <!-- Password -->
+    <div class="flex items-center gap-2">
+      <input type="text" placeholder="password" class="border p-1" formControlName="password1" />
+      <span
+        class="text-red-500 text-sm"
+        *ngIf="profileData.get('password1')?.touched && profileData.get('password1')?.invalid"
+      >
+        Password required
+      </span>
+      <span class="text-red-500 text-sm" *ngIf="profileData.get('password1')?.hasError('maxlength')"
+        >Max length is 6 char</span
+      >
+    </div>
+
+    <button type="submit" class="border bg-amber-100">Submit</button>
+  </form>
+</div>
