@@ -1,0 +1,45 @@
+<p>template-form works!</p>
+<form #userForm="ngForm" class="flex flex-col" (ngSubmit)="onSubmit(userForm.value)">
+    <div>
+        <input required="true" type="text" placeholder="name" class="border my-2" name="name" ngModel #name="ngModel" />
+        <span class="text-sm text-red-500" *ngIf="name.invalid && name.touched">Name is required</span>
+    </div>
+    <div>
+        <input type="text" required="true" placeholder="email" class="border my-2" name="email" ngModel #email="ngModel"
+            pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" />
+        <span class="text-sm text-red-500" *ngIf="email.touched && email.errors?.['required']">
+            Email is required
+        </span>
+
+        <span class="text-sm text-red-500" *ngIf="email.touched && email.errors?.['pattern']">
+            Email is invalid
+        </span>
+
+    </div>
+    <div>
+        <input type="text" required="true" minlength="5" maxlength="8" placeholder="password" class="border my-2"
+            name="password" ngModel #password="ngModel" />
+        <span class="text-sm text-red-500" *ngIf=" password.touched && password.errors?.['required']">Password is
+            required</span>
+        <span class="text-sm text-red-500" *ngIf=" password.dirty && password.errors?.['minlength']">Minlength is
+            5</span>
+    </div>
+    <div>
+        <select name="select gender" required="true" id="" class="my-3 border" name="gender" ngModel #gender="ngModel">
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="no-gender">Prefer not to say</option>
+        </select>
+        <span class="text-sm text-red-500" *ngIf="gender.invalid && gender.touched">Gender is required</span>
+    </div>
+    <button class="border">Submit</button>
+</form>
+
+@if (userData.name) {
+<p class="underline">user data</p>
+<p>{{ userData.name }}</p>
+<p>{{ userData.email }}</p>
+<p>{{ userData.password }}</p>
+<p>{{ userData.gender }}</p>
+}
