@@ -3,10 +3,11 @@ import { ParentToChild } from './parent-to-child/parent-to-child';
 import { FormsModule } from '@angular/forms';
 import { ChildToParent } from './child-to-parent/child-to-parent';
 import { BuiltinPipe } from './builtin-pipe/builtin-pipe';
+import { CustomPipe } from './custom-pipe/custom-pipe';
 
 @Component({
   selector: 'app-root',
-  imports: [ParentToChild, ChildToParent, BuiltinPipe, FormsModule],
+  imports: [ParentToChild, ChildToParent, BuiltinPipe, CustomPipe, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
