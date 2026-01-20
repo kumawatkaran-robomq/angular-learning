@@ -17,7 +17,7 @@
   <app-builtin-pipe></app-builtin-pipe>
   <app-custom-pipe></app-custom-pipe>
 
-  <app-lifecycle *ngIf="count%5!=0"></app-lifecycle>
+  <app-lifecycle *ngIf="count%5!=0" [name]="name"></app-lifecycle>
 
   <p *ngIf="count%5==0" class=" mt-5 bg-red-400 my-1 px-3 rounded-md">Component Destroyed as Count is multiple of 5</p>
   <button class="border rounded-md px-1" (click)="count+=1">Count</button>
