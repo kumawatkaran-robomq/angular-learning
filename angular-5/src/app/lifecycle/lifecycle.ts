@@ -24,7 +24,6 @@ export class Lifecycle {
 
 // 1. Component ka object banta hai
 //    → constructor()
-
 // 2. Parent se @Input values aati hain
 //    → name = 'Karan'
 
