@@ -1,1 +1,98 @@
 <p>attribute-binding works!</p>
+<table class=" border px-2">
+    <!-- <tr [colspan]="2">  Can't bind to 'colspan' since it isn't a known property of 'tr'. -->
+    <tr>
+        <th class="border px-5">Name</th>
+        <th class="border px-5">Marks</th>
+    </tr>
+    <tr>
+        <td class="border px-5">Karan</td>
+        <td class="border px-5">50</td>
+    </tr>
+    <tr>
+        <td class="border px-5">Tushar</td>
+        <td class="border px-5">60</td>
+    </tr>
+    <tr>
+        <!-- <td class="border px-5" colspan="2">Extra</td> it works because value is static no need of binding -->
+        <!-- <td [colSpan]="2">colspan 2</td> work fine because DOM property colSpan hoti hai-->
+        <!-- <td [colspan]="2" class="border px-5">Colspan of 2</td> Can't bind to 'colspan' since it isn't a known property of 'td'. -->
+        <td [attr.colspan]="2" class="border px-5">Colspan 2 with attr. binding</td>
+        <td class="border px-5" colspan="2">Extra</td>
+    </tr>
+</table>
+
+<!-- HTML me attributes hote hain, browser unhe DOM properties me map karta hai. 
+Angular primarily DOM properties ke saath bind karta hai.
+Kyunki har HTML attribute ki corresponding DOM property nahi 
+hoti, isliye aise cases me Angular ko batane ke liye attr. binding use ki jaati hai.
+
+Angular = property-first
+Attribute = fallback with attr.
+
+Binding tab chahiye jab value dynamic ho.
+Static value ke liye binding ki koi zarurat nahi hoti.
+
+Table cell related (VERY IMPORTANT)
+
+colspan → HTML attribute hai, DOM property colSpan hoti hai (same name nahi)
+
+rowspan → HTML attribute hai, DOM property rowSpan hoti hai
+
+headers → HTML attribute hai, DOM property exist nahi karti, attr. chahiye
+
+scope → HTML attribute hai (th ke liye), DOM property nahi hoti
+
+Table structure related
+
+border → HTML attribute hai, reliable DOM property nahi, CSS preferred
+
+cellpadding → HTML attribute hai, DOM property nahi, CSS use karo
+
+cellspacing → HTML attribute hai, DOM property nahi, CSS use karo
+
+summary → HTML attribute hai, DOM property nahi hoti
+
+Accessibility (ARIA) — MOST COMMON attr. CASE
+
+aria-label → HTML attribute hai, DOM property hoti hi nahi
+
+aria-hidden → HTML attribute hai, DOM property nahi hoti
+
+aria-expanded → HTML attribute hai, DOM property nahi hoti
+
+👉 Hamesha:
+
+[attr.aria-xxx]
+
+Data attributes
+
+data-id → HTML attribute hai, direct DOM property nahi hoti
+
+Access JS me dataset se hota hai, Angular me:
+
+[attr.data-id]="id"
+
+Form related (property-first)
+
+disabled → HTML attribute + DOM property SAME naam se
+
+checked → HTML attribute + DOM property SAME naam se
+
+value → HTML attribute + DOM property SAME naam se
+
+👉 Inke liye:
+
+[disabled] [checked] [value]
+
+Special case (important)
+
+type (input) → HTML attribute hai, DOM property restricted, isliye:
+
+[attr.type]
+
+🔑 FINAL MASTER RULE (1 line)
+
+Agar attribute ki writable camelCase DOM property mil jaaye → property binding, warna → attr. binding.
+
+-->
