@@ -1,0 +1,18 @@
+<p>rest-form (Template Form)</p>
+<form #templateForm="ngForm" class="flex flex-col gap-y-2" (ngSubmit)="submit(templateForm.value)">
+    <input type="text" [(ngModel)]="user.name" placeholder="enter your name" class=" border rounded-sm mt-5" name="name"
+        ngModel>
+    <input type="text" [(ngModel)]="user.email" placeholder="enter your email" class=" border rounded-sm" name="email"
+        ngModel>
+    <input type="number" [(ngModel)]="user.age" placeholder="enter your age" class=" border rounded-sm" name="age"
+        ngModel>
+    <button class=" bg-gray-300 rounded-sm border">Submit</button>
+</form>
+
+@for (item of users; track $index) {
+<div class=" bg-amber-100 m-1 p-2 rounded-md hover:shadow-amber-100 hover:shadow-md">
+    <p>{{item.name}}</p>
+    <p>{{item.email}}</p>
+    <p>{{item.age}}</p>
+</div>
+}
