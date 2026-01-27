@@ -1,7 +1,7 @@
 <div class="flex justify-between items-center mb-4">
     <h2 class="text-xl font-bold text-gray-800">My Tasks</h2>
 
-    <button (click)="openDialog()"
+    <button *ngIf="taskList.length>0" (click)="openDialog()"
         class="bg-[#de483a] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#c93c2e] transition flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -57,6 +57,7 @@
             </div>
             <div class="flex gap-2">
                 <button
+                (click)="updateOpenDialog(task)"
                     class="flex-1 bg-[#de483a] text-white px-4 rounded-lg text-sm font-medium hover:bg-[#c93c2e] transition flex items-center justify-center gap-1">
                     <mat-icon>edit</mat-icon>
                     Update
@@ -85,6 +86,7 @@
     <h3 class="text-lg font-medium text-gray-900 mb-2">No tasks found</h3>
     <p class="text-gray-500 mb-6">Get started by creating your first task!</p>
     <button
+    (click)="openDialog()"
         class="bg-[#de483a] text-white px-6 py-2 rounded-lg font-medium hover:bg-[#c93c2e] transition inline-flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />

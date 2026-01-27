@@ -1,14 +1,13 @@
 import { ChangeDetectorRef, Component, inject, NgModule } from '@angular/core';
 import { TasksService } from '../services/tasks';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTask } from '../add-task/add-task';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { MatCardContent } from '@angular/material/card';
-import { MatChipsModule } from '@angular/material/chips';
+import { UpdateTaskComponent } from '../update-task/update-task';
 
 interface TasksInterface {
   task_id: string;
@@ -36,7 +35,7 @@ export class Tasks {
   }
   loadTasks() {
     this.tasks.getTasks().subscribe((res) => {
-      this.taskList = res.rows;
+      this.taskList = res?.rows ?? [];
         this.cdr.detectChanges();
     });
   }
@@ -44,9 +43,28 @@ export class Tasks {
   onStatusChange(task: any, e: Event) {
     const value = (e.target as HTMLSelectElement).value;
     task.status = value;
-    console.log(this.taskList);
+    this.tasks.updateTask(task.task_id,task.task_name,task.status).subscribe(res=>{
+      console.log('status updated');
+      this.loadTasks();
+    })
   }
 
+  updateOpenDialog(task:any){
+    const dialogRef = this.dialog.open(UpdateTaskComponent,{
+      width:'80%',
+      data:{
+        task_id:task.task_id,
+        task_name:task.task_name,
+        status:task.status
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res == 'task-updated') {
+        this.loadTasks();
+      }
+    })
+  }
   openDialog() {
     const dialogRef = this.dialog.open(AddTask, {
       width: '80%',
@@ -65,5 +83,5 @@ export class Tasks {
       this.loadTasks();
     });
   }
-  
+
 }

@@ -2,6 +2,8 @@ import type { Request, Response } from "express";
 import { db } from "../db/db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import type { authRequest } from "../middlewares/authverify.js";
+
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
@@ -49,3 +51,17 @@ export const signup = async (req: Request, res: Response) => {
 
   return res.status(201).json({ message: "Signup successful" });
 };
+
+export const getUser=async(req:authRequest,res:Response)=>{
+  const {userId}= req.user;
+  console.log(userId);
+  if(!userId){ 
+    return res.json({message:"UserId not found"});
+  }
+  try {
+    const [rows]=await db.execute(`SELECT name,email FROM USERS WHERE user_id=?`,[userId]);
+    return res.json({rows});
+  } catch (error) {
+    console.log("error while fetching user data");
+  }
+}

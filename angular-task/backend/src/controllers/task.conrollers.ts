@@ -18,15 +18,16 @@ export const getTasks = async (req: authRequest, res: Response) => {
 
 export const addTask = async (req: authRequest, res: Response) => {
   const { userId } = req.user;
-  const { task_name } = req.body;
+  const { task_name,status} = req.body;
 
   if (!task_name || task_name.trim() === "") {
     return res.status(400).json({ message: "Task name is required" });
   }
 
   try {
-    await db.execute("INSERT INTO tasks (task_name, user_id) VALUES (?, ?)", [
+    await db.execute("INSERT INTO tasks (task_name,status, user_id) VALUES (?, ?,?)", [
       task_name.trim(),
+      status,
       userId,
     ]);
 

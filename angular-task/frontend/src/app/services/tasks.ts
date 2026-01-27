@@ -44,4 +44,13 @@ export class TasksService {
       }),
     });
   }
+
+  updateTask(task_id:string,task_name:string,status:string){
+    let token = this.auth.getToken();
+    return this.http.patch(`${this.api}/tasks`,{task_id,task_name,status},{
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
+    });
+  }
 }
