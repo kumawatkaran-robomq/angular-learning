@@ -13,11 +13,35 @@ export class TasksService {
   ) {}
   api = environment.API_URL;
 
+
   getTasks() {
-    let token = null;
-    this.auth.token.subscribe((t) => (token = t));
+    const token = this.auth.getToken();
     return this.http.get<any>(`${this.api}/tasks`, {
-      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
+    });
+  }
+
+  postTask(task_name: string, status: string) {
+    const token = this.auth.getToken();
+    return this.http.post(
+      `${this.api}/tasks`,
+      { task_name, status },
+      {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${token}`,
+        }),
+      },
+    );
+  }
+
+  deleteTask(task_id:string){
+    let token=this.auth.getToken();
+    return this.http.delete(`${this.api}/tasks/${task_id}`, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
     });
   }
 }

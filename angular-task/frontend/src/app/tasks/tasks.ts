@@ -20,9 +20,9 @@ interface TasksInterface {
 }
 @Component({
   selector: 'app-tasks',
-  imports: [CommonModule, MatSelectModule, MatFormFieldModule,MatIconModule,FormsModule],
+  imports: [CommonModule, MatSelectModule, MatFormFieldModule, MatIconModule, FormsModule],
   templateUrl: './tasks.html',
-  styleUrl:'./tasks.css'
+  styleUrl: './tasks.css',
 })
 export class Tasks {
   constructor(
@@ -32,10 +32,12 @@ export class Tasks {
   readonly dialog = inject(MatDialog);
   taskList: TasksInterface[] = [];
   ngOnInit(): void {
+    this.loadTasks();
+  }
+  loadTasks() {
     this.tasks.getTasks().subscribe((res) => {
       this.taskList = res.rows;
-      this.cdr.detectChanges();
-      console.log(this.taskList);
+        this.cdr.detectChanges();
     });
   }
 
@@ -49,5 +51,19 @@ export class Tasks {
     const dialogRef = this.dialog.open(AddTask, {
       width: '80%',
     });
+
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res == 'task-added') {
+        this.loadTasks();
+      }
+    });
   }
+
+  onDelete(task_id:string){
+    this.tasks.deleteTask(task_id).subscribe((res)=>{
+      console.log(res);
+      this.loadTasks();
+    });
+  }
+  
 }

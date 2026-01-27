@@ -1,37 +1,48 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { TasksService } from '../services/tasks';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './add-task.html',
 })
 export class AddTask {
-  readonly dialogRef=inject(MatDialogRef);
-  taskTitle = '';
-  status: 'to-do' | 'in-progress' | 'complete' = 'to-do';
+  constructor(private taskService: TasksService) {}
+  readonly dialogRef = inject(MatDialogRef);
+  newTask = new FormGroup({
+    task_name: new FormControl('', [Validators.required]),
+    status: new FormControl('to-do', [Validators.required]),
+  });
 
   submit() {
-    if (!this.taskTitle.trim()) return;
+    if (this.newTask.invalid) return;
 
-    const newTask = {
-      task_name: this.taskTitle,
-      status: this.status,
-    };
+    const task_name = this.newTask.value.task_name ?? '';
+    const status = this.newTask.value.status ?? 'to-do';
 
-    console.log('New Task:', newTask);
-    this.reset();
+    this.taskService.postTask(task_name, status).subscribe({
+      next: (res: any) => {
+        console.log('new task created');
+        this.newTask.reset();
+        this.cancel();
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
   }
 
   cancel() {
-    this.dialogRef.close();
-  }
-
-  reset() {
-    this.taskTitle = '';
-    this.status = 'to-do';
+    this.dialogRef.close('task-added');
   }
 }
