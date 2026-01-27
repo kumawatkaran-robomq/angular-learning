@@ -1,0 +1,7 @@
+.completed-task {
+    color: #797c83;
+    text-decoration: line-through;
+    text-decoration-color: #181818;
+    transition: all 0.2s ease;
+  }
+  
