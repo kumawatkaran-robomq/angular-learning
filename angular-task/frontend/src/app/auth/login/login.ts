@@ -1,9 +1,9 @@
 import { CommonModule, NgIf } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Router, RouterLink } from '@angular/router';
+import { Auth } from '../../services/auth';
+
 
 @Component({
   selector: 'app-login',
@@ -11,8 +11,7 @@ import { Observable } from 'rxjs';
   templateUrl: './login.html',
 })
 export class Login {
-
-  constructor(private http:HttpClient){}
+  constructor(private auth: Auth,private router:Router) {}
   loginData = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -23,7 +22,8 @@ export class Login {
 
   isSubmitting = false;
   showPassword = false;
-
+  showError = false;
+  errorMessage = '';
 
   getEmail() {
     return this.loginData.get('email');
@@ -64,7 +64,30 @@ export class Login {
   }
 
   submit() {
-    this.isSubmitting = true;
+    if (this.loginData.invalid) {
+      this.loginData.markAllAsTouched();
+      return;
+    }
 
+    this.isSubmitting = true;
+    this.showError = false;
+
+    const { email, password } = this.loginData.value;
+
+    this.auth.login(email!, password!).subscribe({
+      next: (res: any) => {
+        this.auth.setToken(res.token);
+        this.isSubmitting = false;
+        this.loginData.reset();
+        this.router.navigate(['/tasks']);
+      },
+      error: (err) => {
+        this.isSubmitting = false;
+        this.showError = true;
+        this.errorMessage = err.error?.message || 'Login failed';
+        this.loginData.get('password')?.reset();
+        console.log(this.isSubmitting);
+      },
+    });
   }
 }

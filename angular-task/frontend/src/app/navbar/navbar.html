@@ -7,9 +7,35 @@
                     clip-rule="evenodd" />
             </svg>
         </div>
-        <p class="text-2xl font-bold font-comic">
+        <p class="text-2xl font-bold font-comic" routerLink="/">
             Todoist
         </p>
     </div>
-    <button class=" bg-[#de483a] text-[#FEEFE3] px-3 rounded-md cursor-pointer" routerLink="/login">Login or Signup</button>
+    <button *ngIf="!token && getPath()!='/tasks'" class=" bg-[#de483a] text-[#FEEFE3] px-3 rounded-md cursor-pointer" routerLink="/login">Login
+        or Signup</button>
+    <div *ngIf="token" class=" flex items-center gap-2">
+        <p class=" ">👋 Hii! {{userName}}, Welcome back.</p>
+        <div *ngIf="getPath()!='/tasks'" class="flex items-center gap-1 bg-[#de483a] text-[#FEEFE3] px-3 rounded-md cursor-pointer py-0.5"
+            routerLink="/tasks">
+            <span>My Tasks</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                <path fill-rule="evenodd"
+                    d="M13.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L11.69 12 4.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+                    clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                    d="M19.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06L17.69 12l-6.97-6.97a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+                    clip-rule="evenodd" />
+            </svg>
+        </div>
+        <div *ngIf="token" class=" bg-[#de483a] text-[#FEEFE3] px-3 rounded-md cursor-pointer py-0.5 flex items-center gap-1" (click)="logout()">
+            <p>Logout</p>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+            </svg>
+              
+        </div>
+    </div>
+
 </div>

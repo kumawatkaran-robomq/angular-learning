@@ -25,8 +25,19 @@
 
         <div class="mb-6 p-3 bg-blue-50 border border-blue-200 rounded-lg">
             <p class="text-sm text-blue-800 text-center">
-                <strong>Demo Account:</strong> demo@todoist.com / demo123
+                <strong>Demo Account:</strong> test@gmail.com / 123456
             </p>
+        </div>
+        <div *ngIf="showError" class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2" viewBox="0 0 20 20"
+                    fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                        clip-rule="evenodd" />
+                </svg>
+                <p class="text-red-700 text-sm">{{ errorMessage }}</p>
+            </div>
         </div>
 
         <form [formGroup]="loginData" class="space-y-5" (ngSubmit)="submit()">
@@ -88,7 +99,7 @@
                     {{ getPasswordErrorMessage() }}
                 </div>
             </div>
- 
+
             <button type="submit" [disabled]="loginData.invalid || isSubmitting"
                 class="w-full bg-[#de483a] text-white py-3 rounded-xl font-semibold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed mt-2">
                 <span *ngIf="!isSubmitting">Login to Todoist</span>

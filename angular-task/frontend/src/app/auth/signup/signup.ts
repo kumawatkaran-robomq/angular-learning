@@ -1,7 +1,8 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-signup',
@@ -9,6 +10,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './signup.html',
 })
 export class Signup {
+  constructor (private auth:Auth,private router:Router){};
   signupData = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -72,17 +74,26 @@ export class Signup {
   }
 
   submit() {
+    if (this.signupData.invalid) {
+      this.signupData.markAllAsTouched();
+      return;
+    }
+
     this.isSubmitting = true;
 
-    setTimeout(() => {
-      console.log('Signup Data:', {
-        name: this.signupData.value.name,
-        email: this.signupData.value.email,
-        password: this.signupData.value.password,
-      });
+    const { name,email, password } = this.signupData.value;
 
-      this.isSubmitting = false;
-      this.signupData.reset();
-    }, 1500);
+    this.auth.signup(name!,email!, password!).subscribe({
+      next: (res: any) => {
+        this.auth.setToken(res.token);
+        this.isSubmitting = false;
+        this.signupData.reset();
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        this.isSubmitting = false;
+        console.log(this.isSubmitting);
+      },
+    });
   }
 }
